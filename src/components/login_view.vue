@@ -31,7 +31,8 @@ export default {
     return {
       userName: "",
       password: "",
-      str: "adminLogin",
+      dept:"",
+      deptList:[]
     };
   },
   computed: {
@@ -46,10 +47,10 @@ export default {
     },
   },
   methods: {
-    adminLogin() {
+     adminLogin() {
       let u = this.userName;
       let p = this.password;
-      axios
+       axios
         .post("http://localhost:8082/vue/adminlogin", { userName: u, password: p })
         .then(
           (response) => {
@@ -57,9 +58,13 @@ export default {
               if (response.data.data.category === 1) {
                 this.$router.push("/main");
               } else if (response.data.data.category === 2) {
-                this.$router.push("/teacher");
-              } else {
-              }
+                this.$router.push({
+                  path:'/teacher',
+                  query:{
+                    teacher:response.data.data,
+                  }
+                });
+              } else {}
             } else {
               alert("用户名密码错误！！！");
               this.userName = "";
@@ -92,6 +97,7 @@ export default {
           }
         );
     },
+    
   },
 };
 </script>
