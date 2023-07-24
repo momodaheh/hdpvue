@@ -1,8 +1,11 @@
 <template>
   <div class="all">
-    <div>
-      <LoginView whoLogin="admin" title="管理员登录"></LoginView>
+    
+      <div class="main">
+        <LoginView whoLogin="admin" title="管理员登录"></LoginView>
+        <div class="right"></div>
       </div>
+
   </div>
 </template>
 
@@ -31,5 +34,20 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.main{
+  display: flex;
+  height: 400px;
+  width: 800px;
+  flex-direction: row;
+}
+.right{
+  background-image: url("../assets/img/login_right.jpg");
+  width: 500px;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 </style>

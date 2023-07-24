@@ -1,6 +1,7 @@
 <template>
-  <div class="all">
-    <h2>{{ title }}</h2>
+  <div class="login_all">
+    <h1>{{ title }}</h1>
+    <hr/>
     <div class="login_box">
       
       <div class="item">
@@ -97,10 +98,24 @@ export default {
 
 <style scoped>
 
-.all{
+.login_all{
   display: flex;
   width: 300px;height: 400px;
-  background-color: #f2f2f2;
+  background-color: #fff;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  
+
+}
+.login_all h1{
+  margin-top:80px;
+  color:#8e509a
+}
+.login_all hr{
+  width: 280px;
+  color: #f2f2f2;
+  margin-top: 10px;
 }
 .login_box {
   display: flex;
