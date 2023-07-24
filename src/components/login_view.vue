@@ -50,7 +50,7 @@ export default {
       let u = this.userName;
       let p = this.password;
       axios
-        .post("http://localhost:8080/vue/login", { userName: u, password: p })
+        .post("http://localhost:8082/vue/adminlogin", { userName: u, password: p })
         .then(
           (response) => {
             if (response.data.code === 0) {
@@ -76,7 +76,7 @@ export default {
       let u = this.userName;
       let p = this.password;
       axios
-        .post("http://localhost:8080/vue/login", { userName: u, password: p })
+        .post("http://localhost:8082/vue/login", { userName: u, password: p })
         .then(
           (response) => {
             if (response.data.code === 0) {
