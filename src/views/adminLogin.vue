@@ -2,7 +2,7 @@
   <div class="all">
     
       <div class="main">
-        <LoginView whoLogin="admin" title="管理员登录"></LoginView>
+        <LoginView whoLogin="admin" title="管理员登录" class="login_box"></LoginView>
         <div class="right"></div>
       </div>
 
@@ -38,16 +38,23 @@ export default {
 
 .main{
   display: flex;
-  height: 400px;
-  width: 800px;
+  height: 500px;
+  width: 1000px;
   flex-direction: row;
+  border-radius: 30px;
+}
+
+.login_box{
+  border-radius: 30px 0px 0px 30px;
+  height: 500px;
 }
 .right{
   background-image: url("../assets/img/login_right.jpg");
-  width: 500px;
-  height: 400px;
+  width: 700px;
+  height: 500px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  border-radius:0px 30px 30px 0px;
 }
 </style>

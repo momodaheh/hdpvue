@@ -100,22 +100,22 @@ export default {
 
 .login_all{
   display: flex;
-  width: 300px;height: 400px;
+  width: 300px;
   background-color: #fff;
   flex-direction: column;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
   
 
 }
 .login_all h1{
-  margin-top:80px;
+  
   color:#8e509a
 }
 .login_all hr{
   width: 280px;
   color: #f2f2f2;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .login_box {
   display: flex;
@@ -138,7 +138,7 @@ export default {
 }
 .item button {
   width: 75%;
-  height: 23px;
+  height: 30px;
   border-radius: 5px;
   background-color: #fd4956;
 }
