@@ -61,7 +61,7 @@ export default {
                 this.$router.push({
                   path:'/teacher',
                   query:{
-                    teacher:response.data.data,
+                    user:response.data.data,
                   }
                 });
               } else {}
