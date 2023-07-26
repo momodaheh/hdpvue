@@ -8,7 +8,8 @@
         </option>
       </select>
     </div>
-    <div class="left">
+    <div class="middle">
+      <div class="left">
       <div class="user_infor">
         <h3>我的信息</h3>
         <div class="user_infor_box">
@@ -30,7 +31,7 @@
         <h3>阶段</h3>
         <div class="sementer_list_box">
           <ul>
-            <li v-for="obj in sementerList" :key="obj.id" @click="getTeacher(obj.teacher)">{{ obj.name }}</li>
+            <li v-for="obj in sementerList" :key="obj.id" :class="{'sementeractive':teacher.id===obj.teacher}" @click="getTeacher(obj.teacher)">{{ obj.name }}</li>
           </ul>
         </div>
       </div>
@@ -64,13 +65,22 @@
         </div>
       </div>
     </div>
+    <div class="center">
+      <h3>学生列表</h3>
+      <EmpList :empList="empList" class="emp"></EmpList>
+    </div>
+    </div>
+    
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import EmpList from "../components/teacher/emp-list.vue"
 export default {
-  components: {},
+  components: {
+    EmpList:EmpList,
+  },
   data() {
     return {
       user: this.$route.query.user,
@@ -78,6 +88,7 @@ export default {
       sementerList: [],
       dept: 0,
       teacher:[],
+      empList:[]
     };
   },
   mounted() {
@@ -92,6 +103,7 @@ export default {
             this.deptList = response.data.data;
             this.dept = response.data.data[0].id;
             this.GetSementerList(this.dept);
+            this.getEmpList(this.dept);
           },
           (error) => {}
         );
@@ -125,6 +137,19 @@ export default {
           },
           (error) => {}
         );
+    },
+
+    getEmpList(dept){
+      axios
+        .get("http://localhost:8082/vue/getEmpList", {
+          params: { dept: dept },
+        })
+        .then(
+          (response) => {
+            this.empList = response.data.data;
+          },
+          (error) => {}
+        );
     }
   },
 };
@@ -138,6 +163,7 @@ export default {
   height: 100%;
   background-color: #ecf6ed;
   position: absolute;
+  
 }
 .top {
   width: 100%;
@@ -153,6 +179,10 @@ export default {
 .top select {
   font-size: 20px;
   margin-left: 30px;
+}
+.middle{
+  display: flex;
+  flex-direction: row;
 }
 .left{
   width: 230px;
@@ -207,6 +237,9 @@ export default {
   text-align: center;
   border-radius: 10px;
 }
+.sementer_list_box li.sementeractive{
+  background-color: #07670f;
+}
 .teacher_infor{
   margin-left:5px;
 }
@@ -219,4 +252,9 @@ export default {
   background-color: #fff;
   border-radius: 10%;
 }
+.center{
+  margin-left:10px;
+  height: 580px;
+}
+
 </style>
