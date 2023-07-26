@@ -31,7 +31,7 @@
         <h3>阶段</h3>
         <div class="sementer_list_box">
           <ul>
-            <li v-for="obj in sementerList" :key="obj.id" :class="{'sementeractive':teacher.id===obj.teacher}" @click="getTeacher(obj.teacher)">{{ obj.name }}</li>
+            <li v-for="obj in sementerList" :key="obj.id" :class="{'sementeractive':teacher.id===obj.teacher}" @click="getTeacher(obj.teacher,obj.id)">{{ obj.name }}</li>
           </ul>
         </div>
       </div>
@@ -67,7 +67,10 @@
     </div>
     <div class="center">
       <h3>学生列表</h3>
-      <EmpList :empList="empList" class="emp"></EmpList>
+      <EmpList :empList="empList" class="emp" @record_emp_click="record_emp"></EmpList>
+    </div>
+    <div class="right">
+
     </div>
     </div>
     
@@ -86,6 +89,7 @@ export default {
       user: this.$route.query.user,
       deptList: [],
       sementerList: [],
+      sementerId:-1,
       dept: 0,
       teacher:[],
       empList:[]
@@ -124,9 +128,11 @@ export default {
 
     dept_change_handler(event) {
       this.GetSementerList(event.target.value);
+      this.getEmpList(event.target.value)
     },
 
-    getTeacher(id){
+    getTeacher(id,semId){
+      this.sementerId=semId;
       axios
         .get("http://localhost:8082/vue/getteacher", {
           params: { id: id },
@@ -146,11 +152,36 @@ export default {
         })
         .then(
           (response) => {
-            this.empList = response.data.data;
+            // this.empList = response.data.data;
+            this.empList = response.data.data.map(emp =>({...emp,isSigned:false}));
+            
           },
           (error) => {}
         );
+    },
+
+    record_emp(empId,sign){
+      if(this.sementerId===-1){
+        alert("请选择阶段")
+      }else{
+        axios
+        .get("http://localhost:8082/vue/record_emp", {
+          params: { dept: this.dept,sementer:this.sementerId,emp:empId,user:this.user.id,category:sign },
+        })
+        .then(
+          (response) => {
+             const emp = this.empList.find(e => e.id === empId);
+              if (emp) {
+                emp.isSigned = true;
+              }
+            
+          },
+          (error) => {}
+        );
+      }
+       
     }
+
   },
 };
 </script>
@@ -256,5 +287,8 @@ export default {
   margin-left:10px;
   height: 580px;
 }
-
+.rigth{
+  display: flex;
+  flex-direction: row;
+}
 </style>
