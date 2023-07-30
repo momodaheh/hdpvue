@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   props: ["whoLogin", "title"],
   data() {
@@ -50,8 +49,8 @@ export default {
      adminLogin() {
       let u = this.userName;
       let p = this.password;
-       axios
-        .post("http://localhost:8082/vue/adminlogin", { userName: u, password: p })
+       this.request
+        .post("/vue/adminlogin", { userName: u, password: p })
         .then(
           (response) => {
             if (response.data.code === 0) {
@@ -80,8 +79,8 @@ export default {
     empLogin() {
       let u = this.userName;
       let p = this.password;
-      axios
-        .post("http://localhost:8082/vue/login", { userName: u, password: p })
+      this.request
+        .post("/vue/login", { userName: u, password: p })
         .then(
           (response) => {
             if (response.data.code === 0) {
